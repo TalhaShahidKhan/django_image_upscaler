@@ -30,7 +30,6 @@ DEBUG = config("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
 
-print(config('DEBUG'))
 # Application definition
 
 INSTALLED_APPS = [
