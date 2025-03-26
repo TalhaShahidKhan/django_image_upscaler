@@ -19,8 +19,8 @@ COPY . .
 # Build Tailwind CSS
 RUN npm run build
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+# Remove the static files collection from here
+# RUN python manage.py collectstatic --noinput
 
-# Run migrations during the build phase
-CMD ["sh", "-c", "python manage.py migrate && gunicorn upscale.wsgi"]
+# Run migrations and collect static files during startup
+CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate && gunicorn upscale.wsgi"]

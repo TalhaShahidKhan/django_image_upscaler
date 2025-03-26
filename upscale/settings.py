@@ -12,8 +12,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import dj_database_url
-from decouple import config
-
+import environ
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, 'django-insecure-m8jl9w%&6gmhh7q-4395q5khd=vo3r$u$l!^-o#-(2j9j^5p&r'),
+    DATABASE_URL=(str, 'postgresql://postgres:SKxfaPKXlhwULnwFZXNjVoPfPjFWzLod@postgres.railway.internal:5432/railway'),
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +25,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+env_file = BASE_DIR / '.env'
+
+# Read .env file if it exists
+if env_file.exists():
+    environ.Env.read_env(env_file)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY", cast=str)
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG")
+
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -92,7 +102,7 @@ if DEBUG:
 else:
     DATABASES = {
         "default": dj_database_url.config(
-            default=config("DATABASE_URL", cast=str),
+            default=str(env('DATABASE_URL')),
             conn_max_age=600,
             conn_health_checks=True,
         )
