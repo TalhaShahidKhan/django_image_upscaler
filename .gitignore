@@ -186,3 +186,8 @@ cython_debug/
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# New additions
+venv/
+node_modules/
+staticfiles/
