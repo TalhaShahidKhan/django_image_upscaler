@@ -19,8 +19,17 @@ COPY . .
 # Build Tailwind CSS
 RUN npm run build
 
-# Remove the static files collection from here
-# RUN python manage.py collectstatic --noinput
+# Expose the port
+EXPOSE 8000
 
-# Run migrations and collect static files during startup
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && python manage.py migrate && gunicorn upscale.wsgi"]
+# Create a startup script
+RUN echo '#!/bin/bash\n\
+sleep 5\n\
+python manage.py migrate\n\
+python manage.py collectstatic --noinput\n\
+gunicorn upscale.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120' > /app/start.sh
+
+RUN chmod +x /app/start.sh
+
+# Run the startup script
+CMD ["/app/start.sh"]

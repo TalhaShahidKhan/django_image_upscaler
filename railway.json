@@ -4,7 +4,7 @@
     "dockerfile": "Dockerfile"
   },
   "deploy": {
-    "startCommand": "sleep 5 && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn upscale.wsgi",
+    "startCommand": "/app/start.sh",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
