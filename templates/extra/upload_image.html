@@ -12,25 +12,26 @@
         {% endif %}
     </div>
 {% elif image %}
-    <div class="text-center">
-        <h3 class="text-lg font-semibold mb-2">Image Uploaded Successfully</h3>
-        <img src="{{ image.upload_link }}"
-             alt="{{ image.image_name }}"
-             width="400"
-             height="300"
-             class="max-w-full max-h-64 mx-auto rounded shadow-md">
-        <p class="mt-2 text-sm text-gray-600">{{ image.image_name }}</p>
-        <div class="my-4 mx-3 py-2 px-3 border-2 border-sky-300 flex items-center justify-center w-1/2">
-            <p>task 1</p>
-            <p>task 2</p>
-            <p>task 3</p>
-            <p>task 4</p>
-            <p>task 5</p>
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+        <div class="p-6">
+            <h3 class="text-lg font-semibold mb-2 text-center">Image Uploaded Successfully</h3>
+            <img src="{{ image.upload_link }}"
+                 height="100%"
+                 width="100%"
+                 alt="{{ image.image_name }}"
+                 class="max-w-full max-h-64 mx-auto rounded shadow-md">
+            <p class="mt-2 text-sm text-gray-600 text-center">{{ image.image_name }}</p>
+        </div>
+        <div class="flex justify-center mb-4">
+            <a href="{% url 'scale:update' public_id=image.public_id %}"
+               class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition">
+                Edit/Process This Image
+            </a>
         </div>
     </div>
 {% else %}
     <div class="text-gray-500 text-center p-4">
         <p>Select an image to upload</p>
-        <p class="text-xs mt-1">Supported formats: JPG, PNG, WEBPz</p>
+        <p class="text-xs mt-1">Supported formats: JPG, PNG, WEBP</p>
     </div>
 {% endif %}

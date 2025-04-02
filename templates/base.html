@@ -13,11 +13,35 @@
             {% block title %}
             {% endblock title %}
         </title>
+        <script>
+            // Function to force reload CSS without cache
+            function reloadCSS() {
+                const links = document.getElementsByTagName('link');
+                for (let i = 0; i < links.length; i++) {
+                    if (links[i].rel === 'stylesheet') {
+                        const href = links[i].href.split('?')[0];
+                        links[i].href = href + '?v=' + new Date().getTime();
+                    }
+                }
+                console.log('CSS cache cleared at ' + new Date().toLocaleTimeString());
+            }
+            
+            // Set interval to reload CSS every 30 seconds
+            setInterval(reloadCSS, 30000);
+            
+            // Also reload once when page loads
+            document.addEventListener('DOMContentLoaded', reloadCSS);
+        </script>
     </head>
     <body>
         {% include "extra/navbar.html" %}
         {% block body %}
         {% endblock body %}
         <script src='{% static "js/htmx.min.js" %}'></script>
+
+
+        
+        {% block extra_script %}            
+        {% endblock extra_script %}            
     </body>
 </html>

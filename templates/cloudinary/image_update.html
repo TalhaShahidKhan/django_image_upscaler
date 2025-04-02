@@ -1,26 +1,132 @@
 {% extends "base.html" %}
 {% block title %}
-    Update Image
+    Image Editor
 {% endblock title %}
 {% block body %}
     {% if image %}
-        <div class="text-center">
-            <img src="{{ image.upload_link }}"
-                 alt="{{ image.image_name }}"
-                 width="400"
-                 height="300"
-                 class="max-w-full max-h-64 mx-auto rounded shadow-md">
-            <p class="mt-2 text-sm text-gray-600">{{ image.image_name }}</p>
-            <div class="my-4 mx-3 py-2 px-3 border-2 border-sky-300 flex items-center justify-center w-1/2">
-                <form hx-post="{% url 'scale:task' public_id=image.public_id task='upscale' %}"
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Image Editor</h1>
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <img src="{{ image.upload_link }}"
+                         height="100"
+                         width="100"
+                         alt="{{ image.image_name }}"
+                         class="max-w-full max-h-96 mx-auto rounded-lg shadow-md">
+                    <p class="mt-4 text-center text-gray-600 font-medium">{{ image.image_name }}</p>
+                </div>
+            </div>
+            <div class="flex items-center justify-center flex-col gap-3.5">
+                <form class="w-full"
+                      hx-post="{% url 'scale:task' public_id=image.public_id task='upscale' %}"
                       hx-target="#task_result"
                       hx-trigger="submit">
                     {% csrf_token %}
-                    <button type="submit">Upscale</button>
+                    <button type="submit"
+                            class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                        </svg>
+                        Upscale Image
+                    </button>
+                </form>
+                <form class="w-full"
+                      hx-post="{% url 'scale:task' public_id=image.public_id task='ext' %}"
+                      hx-target="#task_result"
+                      hx-trigger="submit">
+                    {% csrf_token %}
+                    <div class="flex items-center justify-center gap-2.5">
+                        <input type="text"
+                               class="w-full mx-2"
+                               placeholder="Write the thing to Extract. 1 item at a time"
+                               name="ext">
+                    </div>
+                    <button type="submit"
+                            class="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Extract
+                    </button>
+                </form>
+                <form class="w-full"
+                      hx-post="{% url 'scale:task' public_id=image.public_id task='bg_remove' %}"
+                      hx-target="#task_result"
+                      hx-trigger="submit">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="w-full py-2 px-4 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-7 7m7-7l-7-7" />
+                        </svg>
+                        Background Remove
+                    </button>
+                </form>
+                <form class="w-full"
+                      hx-post="{% url 'scale:task' public_id=image.public_id task='gen_fill' %}"
+                      hx-target="#task_result"
+                      hx-trigger="submit">
+                    {% csrf_token %}
+                    <button type="submit"
+                            class="w-full py-2 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Generative Fill [1:1]
+                    </button>
+                </form>
+                <form class="w-full"
+                      hx-post="{% url 'scale:task' public_id=image.public_id task='gen_replace' %}"
+                      hx-target="#task_result"
+                      hx-trigger="submit">
+                    {% csrf_token %}
+                    <div class="flex items-center justify-center gap-2.5">
+                        <input type="text"
+                               class="w-full mx-2"
+                               placeholder="Replace Form"
+                               name="from">
+                        <input type="text" class="w-full mx-2" placeholder="Replace To" name="to">
+                    </div>
+                    <button type="submit"
+                            class="w-full py-2 px-4 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-md transition duration-200 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-5 w-5 mr-2"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                        Generative Replace
+                    </button>
                 </form>
             </div>
         </div>
-        <div class="py-2 my-5 border-2 border-red-600 rounded-3xl"
-             id="task_result">dfefoiqj</div>
+        <div id="task_result" class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700 border-b pb-2">Results</h2>
+            <p class="text-gray-600">Select an option above to see the results here.</p>
+        </div>
+    {% else %}
+        <div class="max-w-md mx-auto px-4 py-12 text-center">
+            <div class="bg-red-100 text-red-700 p-4 rounded-lg">
+                <h2 class="font-bold text-xl mb-2">No Image Found</h2>
+                <p>The requested image could not be found.</p>
+            </div>
+        </div>
     {% endif %}
 {% endblock body %}
