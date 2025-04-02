@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('home.urls',namespace="home")),
     path('users/', include('users.urls',namespace="users")),
-    # path('scale/', include('cloudinary.urls',namespace="scale")),
+    path('scale/', include('dj_cloudinary.urls',namespace="scale")),
 
 ]

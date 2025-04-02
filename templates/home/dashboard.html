@@ -4,6 +4,19 @@
 {% endblock title %}
 {% block body %}
     {{ request.user.username }}
+    {% if images %}
+        {% for img in images %}
+            <a href="{% url 'scale:update' public_id=img.public_id %}">
+                <img src="{{ img.upload_link }}"
+                     alt="{{ img.image_name }}"
+                     height="300"
+                     width="200">
+            </a>
+        {% endfor %}
+    {% else %}
+        <h1>No Images found</h1>
+    {% endif %}
+    <a href='{% url "scale:upscale" %}'>Upload Image</a>
     <form method="post" action='{% url "users:logout" %}'>
         {% csrf_token %}
         <button type="submit">Logout</button>

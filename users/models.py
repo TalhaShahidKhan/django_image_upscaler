@@ -6,7 +6,7 @@ from .manager import CustomUserManager
 
 
 class CustomUser(AbstractUser):
-    upscale_credit = models.IntegerField(default=5)
+    upscale_credit = models.PositiveIntegerField(default=5)
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
     objects = CustomUserManager()

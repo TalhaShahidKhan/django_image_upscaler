@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CloudinaryConfig(AppConfig):
+class DjCloudinaryConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'cloudinary'
+    name = 'dj_cloudinary'

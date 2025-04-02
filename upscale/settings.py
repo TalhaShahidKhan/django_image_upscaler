@@ -13,10 +13,20 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import dj_database_url
 import environ
+
 env = environ.Env(
-    DEBUG=(bool, False),
-    SECRET_KEY=(str, 'django-insecure-m8jl9w%&6gmhh7q-4395q5khd=vo3r$u$l!^-o#-(2j9j^5p&r'),
-    DATABASE_URL=(str, 'postgresql://postgres:SKxfaPKXlhwULnwFZXNjVoPfPjFWzLod@postgres.railway.internal:5432/railway'),
+    DEBUG=(bool, True),
+    SECRET_KEY=(
+        str,
+        "django-insecure-m8jl9w%&6gmhh7q-4395q5khd=vo3r$u$l!^-o#-(2j9j^5p&r",
+    ),
+    DATABASE_URL=(
+        str,
+        "postgresql://postgres:SKxfaPKXlhwULnwFZXNjVoPfPjFWzLod@postgres.railway.internal:5432/railway",
+    ),
+    CLOUDINARY_CLOUD_NAME=(str, None),
+    CLOUDINARY_API_KEY=(str, None),
+    CLOUDINARY_API_SECRET=(str, None),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,18 +35,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-env_file = BASE_DIR / '.env'
+env_file = BASE_DIR / ".env"
 
 # Read .env file if it exists
 if env_file.exists():
     environ.Env.read_env(env_file)
-
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = env('DEBUG')
+DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -49,10 +58,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "users",
     "home",
-    "cloudinary",
+    "dj_cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -65,9 +73,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 
 ROOT_URLCONF = "upscale.urls"
 
@@ -103,11 +108,17 @@ if DEBUG:
 else:
     DATABASES = {
         "default": dj_database_url.config(
-            default=str(env('DATABASE_URL')),
+            default=str(env("DATABASE_URL")),
             conn_max_age=600,
             conn_health_checks=True,
         )
     }
+
+
+# CLOUDINARY SETTINGS
+CLOUDINARY_CLOUD_NAME = env("CLOUDINARY_CLOUD_NAME")
+CLOUDINARY_API_KEY = env("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = env("CLOUDINARY_API_SECRET")
 
 
 # Password validation
@@ -128,9 +139,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'users.CustomUser'
-LOGIN_REDIRECT_URL = '/home/dashboard/'
-LOGOUT_REDIRECT_URL = '/'
+AUTH_USER_MODEL = "users.CustomUser"
+LOGIN_REDIRECT_URL = "/home/dashboard/"
+LOGOUT_REDIRECT_URL = "/"
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -154,3 +165,9 @@ STATIC_ROOT = "staticfiles"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+if DEBUG:
+    STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+else:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
