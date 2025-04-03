@@ -187,7 +187,7 @@ SESSION_COOKIE_SECURE = True  # HTTPS only
 CSRF_COOKIE_SECURE = True
 
 # Admin IP restriction settings
-ADMIN_ALLOWED_IPS = env.list('ADMIN_ALLOWED_IPS', default=["*"])
+ADMIN_ALLOWED_IPS = ["*"]
 
 
 # Superuser commands variables 
