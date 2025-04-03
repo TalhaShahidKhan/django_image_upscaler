@@ -38,10 +38,8 @@
         {% block body %}
         {% endblock body %}
         <script src='{% static "js/htmx.min.js" %}'></script>
-
-
-        
-        {% block extra_script %}            
-        {% endblock extra_script %}            
+        <script src='{% static "js/paddle_official.js" %}'></script>
+        {% block extra_script %}
+        {% endblock extra_script %}
     </body>
 </html>

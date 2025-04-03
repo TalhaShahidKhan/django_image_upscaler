@@ -24,5 +24,6 @@ urlpatterns = [
     path('home/', include('home.urls',namespace="home")),
     path('users/', include('users.urls',namespace="users")),
     path('scale/', include('dj_cloudinary.urls',namespace="scale")),
+    path('payment/', include('payments.urls',namespace="pay")),
 
 ]

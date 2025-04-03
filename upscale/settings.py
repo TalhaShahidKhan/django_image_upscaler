@@ -16,17 +16,13 @@ import environ
 
 env = environ.Env(
     DEBUG=(bool, True),
-    SECRET_KEY=(
-        str,
-        "django-insecure-m8jl9w%&6gmhh7q-4395q5khd=vo3r$u$l!^-o#-(2j9j^5p&r",
-    ),
-    DATABASE_URL=(
-        str,
-        "postgresql://postgres:SKxfaPKXlhwULnwFZXNjVoPfPjFWzLod@postgres.railway.internal:5432/railway",
-    ),
+    SECRET_KEY=(str, None),
+    DATABASE_URL=(str, None),
     CLOUDINARY_CLOUD_NAME=(str, None),
     CLOUDINARY_API_KEY=(str, None),
     CLOUDINARY_API_SECRET=(str, None),
+    PADDLE_CLIENT_SIDE_TOKEN=(set, None),
+    PADDLE_WEBHOOK_SECRET=(set, None),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -61,6 +57,7 @@ INSTALLED_APPS = [
     "users",
     "home",
     "dj_cloudinary",
+    "payments",
 ]
 
 MIDDLEWARE = [
@@ -121,6 +118,9 @@ CLOUDINARY_API_KEY = env("CLOUDINARY_API_KEY")
 CLOUDINARY_API_SECRET = env("CLOUDINARY_API_SECRET")
 
 
+# Paddle settings
+PADDLE_CLIENT_SIDE_TOKEN = env("PADDLE_CLIENT_SIDE_TOKEN")
+PADDLE_WEBHOOK_SECRET = env('PADDLE_WEBHOOK_SECRET')  # You'll need to get this from Paddle dashboard
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
