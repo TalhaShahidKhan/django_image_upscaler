@@ -48,42 +48,15 @@
         </div>
     </div>
     <script>
-        // Initialize Paddle
-        Paddle.Setup({ 
-            vendor: {{ paddle_client_side_token|safe }},
-            eventCallback: function(data) {
-                // Handle checkout events
-                if (data.event === 'Checkout.Complete') {
-                    // The checkout was completed successfully
-                    window.location.href = "{% url 'payments:success' %}?checkout_id=" + data.checkout.id;
-                }
-            }
-        });
+        Paddle.Initialize({
+            token: {{ paddle_client_side_token|safe }},
+            pwCustomer: {}
+          });
+        
 
         function initiatePurchase(productId) {
             Paddle.Checkout.open({
-                product: productId,
-                email: "{{ request.user.email }}",
-                successCallback: function(data) {
-                    // Handle successful purchase
-                    console.log("Purchase successful", data);
-                    // Save transaction data on your server
-                    fetch("{% url 'payments:complete' %}", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': '{{ csrf_token }}'
-                        },
-                        body: JSON.stringify({
-                            checkout_id: data.checkout.id,
-                            product_id: productId
-                        })
-                    }).then(response => {
-                        if (response.ok) {
-                            window.location.reload();
-                        }
-                    });
-                }
+                
             });
         }
     </script>

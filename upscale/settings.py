@@ -200,6 +200,11 @@ DJANGO_SUPERUSER_EMAIL =  env("DJANGO_SUPERUSER_EMAIL")
 DJANGO_SUPERUSER_PASSWORD =  env("DJANGO_SUPERUSER_PASSWORD")
 
 # Ensure CSRF works with your domain
-CSRF_TRUSTED_ORIGINS = ['https://scalify.up.railway.app/']
+CSRF_TRUSTED_ORIGINS = [
+    'https://scalify.up.railway.app',
+    'http://scalify.up.railway.app',  # Include HTTP version
+    'https://*.railway.app',  # Wildcard for all railway subdomains
+    'http://*.railway.app'
+]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
