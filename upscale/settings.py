@@ -21,8 +21,12 @@ env = environ.Env(
     CLOUDINARY_CLOUD_NAME=(str, None),
     CLOUDINARY_API_KEY=(str, None),
     CLOUDINARY_API_SECRET=(str, None),
-    PADDLE_CLIENT_SIDE_TOKEN=(set, None),
-    PADDLE_WEBHOOK_SECRET=(set, None),
+    PADDLE_CLIENT_SIDE_TOKEN=(str, None),
+    PADDLE_WEBHOOK_SECRET=(str, None),
+    ADMIN_ALLOWED_IPS=(list, []),
+    DJANGO_SUPERUSER_USERNAME=(str,None),
+    DJANGO_SUPERUSER_EMAIL=(str,None),
+    DJANGO_SUPERUSER_PASSWORD=(str,None)
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -69,6 +73,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "users.middleware.AdminIPRestrictionMiddleware",
 ]
 
 ROOT_URLCONF = "upscale.urls"
@@ -142,8 +147,13 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = "users.CustomUser"
 LOGIN_REDIRECT_URL = "/home/dashboard/"
 LOGOUT_REDIRECT_URL = "/"
+SIGNUP_REDIRECT_URL = "/users/login/"
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
+
+
+
+
 
 LANGUAGE_CODE = "en-us"
 
@@ -171,3 +181,16 @@ if DEBUG:
     STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
+SESSION_COOKIE_SECURE = True  # HTTPS only
+CSRF_COOKIE_SECURE = True
+
+# Admin IP restriction settings
+ADMIN_ALLOWED_IPS = env.list('ADMIN_ALLOWED_IPS', default=["*"])
+
+
+# Superuser commands variables 
+DJANGO_SUPERUSER_USERNAME =  env("DJANGO_SUPERUSER_USERNAME")
+DJANGO_SUPERUSER_EMAIL =  env("DJANGO_SUPERUSER_EMAIL")
+DJANGO_SUPERUSER_PASSWORD =  env("DJANGO_SUPERUSER_PASSWORD")
