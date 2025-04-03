@@ -183,8 +183,12 @@ else:
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 SESSION_COOKIE_AGE = 3600  # 1 hour in seconds
-SESSION_COOKIE_SECURE = True  # HTTPS only
-CSRF_COOKIE_SECURE = True
+if DEBUG:
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+else:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
 
 # Admin IP restriction settings
 ADMIN_ALLOWED_IPS = ["*"]
@@ -194,3 +198,8 @@ ADMIN_ALLOWED_IPS = ["*"]
 DJANGO_SUPERUSER_USERNAME =  env("DJANGO_SUPERUSER_USERNAME")
 DJANGO_SUPERUSER_EMAIL =  env("DJANGO_SUPERUSER_EMAIL")
 DJANGO_SUPERUSER_PASSWORD =  env("DJANGO_SUPERUSER_PASSWORD")
+
+# Ensure CSRF works with your domain
+CSRF_TRUSTED_ORIGINS = ['https://scalify.up.railway.app/']
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
