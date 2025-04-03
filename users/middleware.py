@@ -10,6 +10,10 @@ class AdminIPRestrictionMiddleware:
     def __call__(self, request):
         # Check if the request is for the admin site
         if request.path.startswith('/admin/'):
+            # If '*' is in the allowed IPs list, allow all IPs
+            if '*' in self.allowed_ips:
+                return self.get_response(request)
+                
             # Get client IP - handle proxy forwarding if needed
             x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
             if x_forwarded_for:
@@ -18,8 +22,8 @@ class AdminIPRestrictionMiddleware:
             else:
                 ip = request.META.get('REMOTE_ADDR')
             
-            # Check if IP is in allowed list
-            if self.allowed_ips and ip not in self.allowed_ips:
+            # Check if IP is allowed
+            if ip not in self.allowed_ips:
                 return HttpResponseForbidden("Access denied. Your IP is not authorized to access the admin area.")
         
         # Continue processing the request for allowed IPs or non-admin URLs
