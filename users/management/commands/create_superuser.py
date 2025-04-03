@@ -7,9 +7,9 @@ class Command(BaseCommand):
     help = 'Create a superuser automatically from environment variables'
 
     def handle(self, *args, **options):
-        username = settings('DJANGO_SUPERUSER_USERNAME')
-        email = settings('DJANGO_SUPERUSER_EMAIL')
-        password = settings('DJANGO_SUPERUSER_PASSWORD')
+        username = settings.DJANGO_SUPERUSER_USERNAME
+        email = settings.DJANGO_SUPERUSER_EMAIL
+        password = settings.DJANGO_SUPERUSER_PASSWORD
 
         if not all([username, email, password]):
             self.stdout.write(self.style.ERROR('Environment variables for superuser not properly set.'))
