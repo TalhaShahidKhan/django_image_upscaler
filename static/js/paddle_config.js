@@ -29,7 +29,7 @@ window.initiatePurchase = async function(credit_id, token, email, env) {
             throw new Error("No transaction ID returned from server");
         }
         
-        Paddle.Environment.set(env);
+        Paddle.Environment.set(env.trim());
         Paddle.Setup({ token: token });
         
         console.log("Opening Paddle checkout with transaction ID:", data.tnx_id);

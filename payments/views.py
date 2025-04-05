@@ -36,7 +36,7 @@ class ListCreditsView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
-        context["paddle_client_side_token"] = settings.PADDLE_CLIENT_SIDE_TOKEN
+        context["paddle_client_side_token"] = settings.PADDLE_CLIENT_SIDE_TOKEN.strip()
         context["paddle_env"] = settings.PADDLE_ENVIRONMENT.strip()
         return context
 
@@ -46,10 +46,14 @@ def create_dynamic_transaction(request, credit_id):
     try:
         credit = Credit.objects.get(id=credit_id)
 
-        
+        # Handle environment properly
+        if settings.PADDLE_ENVIRONMENT.strip().lower() == "sandbox":
+            env = Environment.SANDBOX
+        else:
+            env = Environment.PRODUCTION
 
         paddle = Client(
-            settings.PADDLE_API_SECRET_KEY, options=Options(settings.PADDLE_ENVIRONMENT.strip())
+            settings.PADDLE_API_SECRET_KEY, options=Options(env)
         )
 
         # Create the transaction with more complete information
@@ -75,6 +79,7 @@ def create_dynamic_transaction(request, credit_id):
                         quantity=1,
                     )
                 ],
+                custom_data={"credit_id": str(credit.id), "user_email": request.user.email}
             )
         )
 
