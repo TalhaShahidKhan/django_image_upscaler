@@ -1,30 +1,24 @@
 from django.http import HttpResponseForbidden
-from django.conf import settings
+from django.contrib.auth.views import redirect_to_login
 
-class AdminIPRestrictionMiddleware:
+class AdminAccessMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        # Get allowed IPs from settings or use a default list
-        self.allowed_ips = getattr(settings, 'ADMIN_ALLOWED_IPS', [])
 
     def __call__(self, request):
         # Check if the request is for the admin site
         if request.path.startswith('/admin/'):
-            # If '*' is in the allowed IPs list, allow all IPs
-            if '*' in self.allowed_ips:
+            # Allow access to login page
+            if request.path == '/admin/login/' or request.path.startswith('/admin/login'):
                 return self.get_response(request)
                 
-            # Get client IP - handle proxy forwarding if needed
-            x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-            if x_forwarded_for:
-                # Get the first IP in case of multiple proxies
-                ip = x_forwarded_for.split(',')[0].strip()
-            else:
-                ip = request.META.get('REMOTE_ADDR')
-            
-            # Check if IP is allowed
-            if ip not in self.allowed_ips:
-                return HttpResponseForbidden("Access denied. Your IP is not authorized to access the admin area.")
+            # Check if user is authenticated
+            if not request.user.is_authenticated:
+                return redirect_to_login(request.get_full_path())
+                
+            # Check if user is staff or superuser
+            if not (request.user.is_staff or request.user.is_superuser):
+                return HttpResponseForbidden("Access denied. Only staff and superusers can access the admin area.")
         
-        # Continue processing the request for allowed IPs or non-admin URLs
+        # Continue processing the request
         return self.get_response(request)

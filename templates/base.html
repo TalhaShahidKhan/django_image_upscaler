@@ -40,11 +40,9 @@
     </style>
     <body>
         {% include "extra/navbar.html" %}
+        {{ request.user.upscale_credit }}
         {% block body %}
         {% endblock body %}
         <script src='{% static "js/htmx.min.js" %}'></script>
-        <script src='{% static "js/paddle_official.js" %}'></script>
-        {% block extra_script %}
-        {% endblock extra_script %}
     </body>
 </html>

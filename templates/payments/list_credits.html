@@ -15,7 +15,9 @@
                             <div class="text-xl text-gray-600 mb-6">Credits</div>
                             <div class="text-2xl font-bold mb-6">${{ cdt.price }}</div>
                             <button class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition duration-200"
-                                    onclick="initiatePurchase('{{ cdt.product_id }}')">Purchase Now</button>
+                                    onclick="initiatePurchase({{ cdt.id }}, '{{ paddle_client_side_token|safe }}', '{{ request.user.email }}', '{{ paddle_env|safe }}' )">
+                                Purchase Now
+                            </button>
                         </div>
                     </div>
                 {% endfor %}
@@ -47,17 +49,6 @@
             </div>
         </div>
     </div>
-    <script>
-        Paddle.Initialize({
-            token: {{ paddle_client_side_token|safe }},
-            pwCustomer: {}
-          });
-        
-
-        function initiatePurchase(productId) {
-            Paddle.Checkout.open({
-                
-            });
-        }
-    </script>
+    <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+    <script src='{% static "js/paddle_config.js" %}'></script>
 {% endblock body %}

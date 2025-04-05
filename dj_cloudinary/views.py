@@ -10,6 +10,7 @@ import uuid
 from .models import Image
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.db import transaction
 
 
 User = get_user_model()
@@ -33,8 +34,27 @@ class ImageUpscaleView(LoginRequiredMixin, TemplateView):
 
 
 def update_image_view(request, public_id):
-    image = Image.objects.get(public_id=public_id)
-    return render(request, "cloudinary/image_update.html", context={"image": image})
+    if request.user.upscale_credit == 0:
+        return render(
+            request,
+            "cloudinary/image_update.html",
+            context={
+                "error": "User has no credit to process images. Please buy credits first.",
+                "credit_url": reverse("pay:list_credits")
+            },
+        )
+    try:
+        image = Image.objects.get(public_id=public_id)
+        return render(request, "cloudinary/image_update.html", context={"image": image})
+    except Image.DoesNotExist:
+        return render(
+            request,
+            "cloudinary/image_update.html",
+            context={
+                "error": "Image not found.",
+                "credit_url": reverse("pay:list_credits")
+            },
+        )
 
 
 def htmx_upload_image_view(request):
@@ -45,11 +65,12 @@ def htmx_upload_image_view(request):
 
     if request.user.upscale_credit == 0:
         return render(
-            request,
-            "extra/upload_image.html",
-            context={
-                "error": "User have no credit to Upload Image. Please Buy credits first"
-            },
+            request, 
+            "extra/upload_image.html", 
+            {
+                "error": "Insufficient credits. Please purchase more credits to continue.",
+                "credit_url": reverse("pay:list_credits")
+            }
         )
 
     if "image" not in request.FILES:
@@ -101,9 +122,7 @@ def htmx_upload_image_view(request):
             image_name=image_file.name,
             upload_link=result["secure_url"],
         )
-        user = User.objects.filter(username=request.user.username).first()
-        user.upscale_credit = user.upscale_credit - 1
-        user.save()
+        
         return render(request, "extra/upload_image.html", context={"image": image})
 
     except Exception as e:
@@ -116,69 +135,39 @@ def htmx_upload_image_view(request):
 
 def ai_task_view(request, public_id, task):
     if request.method != "POST":
+        return render(request, "extra/result_image.html", {"error": "Method not allowed"})
+    
+    # Check credit balance first
+    if request.user.upscale_credit <= 0:
         return render(
-            request, "extra/result_image.html", context={"error": "Method not allowed"}
+            request, 
+            "extra/result_image.html", 
+            {"error": "Insufficient credits. Please purchase more credits to continue."}
         )
+    
     try:
-        cloudinary_init = get_cloudinary_config()
-        if not cloudinary_init:
-            return render(
-                request,
-                "extra/result_image.html",
-                context={"error": "Cloudinary configuration failed"}
-            )
-            
-        # Get the original image to pass to template
+        # Get the original image
         original_image = Image.objects.get(public_id=public_id)
         
-        # Process based on task
+        # Process image based on task
+        result = None
+        task_name = ""
+        
         if task == "upscale":
             result = CloudinaryImage(public_id).image(effect="upscale")
-            return render(
-                request,
-                "extra/result_image.html",
-                context={
-                    "url": f"{result[10:-3]}", 
-                    "task_name": "Upscaled Image",
-                    "original_image": original_image
-                }
-            )
+            task_name = "Upscaled Image"
         elif task == "ext":
             ext = request.POST.get("ext","")
             result = CloudinaryImage(public_id).image(effect=f"extract:prompt_({ext})")
-            return render(
-                request,
-                "extra/result_image.html",
-                context={
-                    "url": f"{result[10:-3]}", 
-                    "task_name": "Extracted Image",
-                    "original_image": original_image
-                }
-            )
+            task_name = "Extracted Image"
         elif task == "bg_remove":
             result = CloudinaryImage(public_id).image(effect="background_removal")
-            return render(
-                request,
-                "extra/result_image.html",
-                context={
-                    "url": f"{result[10:-3]}", 
-                    "task_name": "Background Removed",
-                    "original_image": original_image
-                }
-            )
+            task_name = "Background Removed"
         elif task == "gen_fill":
             result = CloudinaryImage(public_id).image(
                 aspect_ratio="1:1", gravity="center", background="gen_fill", crop="pad"
             )
-            return render(
-                request,
-                "extra/result_image.html",
-                context={
-                    "url": f"{result[10:-3]}", 
-                    "task_name": "Generative Fill",
-                    "original_image": original_image
-                }
-            )
+            task_name = "Generative Fill"
         elif task == "gen_replace":
             try:
                 replace_from = request.POST.get("from", "")
@@ -194,15 +183,7 @@ def ai_task_view(request, public_id, task):
                 result = CloudinaryImage(public_id).image(
                     effect=f"gen_replace:from_{replace_from};to_{replace_to}"
                 )
-                return render(
-                    request,
-                    "extra/result_image.html",
-                    context={
-                        "url": f"{result[10:-3]}", 
-                        "task_name": f"Replaced '{replace_from}' with '{replace_to}'",
-                        "original_image": original_image
-                    }
-                )
+                task_name = f"Replaced '{replace_from}' with '{replace_to}'"
             except KeyError:
                 return render(
                     request,
@@ -213,18 +194,27 @@ def ai_task_view(request, public_id, task):
             return render(
                 request,
                 "extra/result_image.html",
-                context={"error": f"Unknown task: {task}"}
+                {"error": f"Unknown task: {task}"}
             )
             
-    except Image.DoesNotExist:
+        # If we got here, the task was successful - deduct credit in a transaction
+        with transaction.atomic():
+            request.user.upscale_credit -= 1
+            request.user.save()
+        
         return render(
             request,
             "extra/result_image.html",
-            context={"error": "Image not found"}
+            {
+                "url": f"{result[10:-3]}", 
+                "task_name": task_name,
+                "original_image": original_image
+            }
         )
+        
     except Exception as e:
         return render(
             request,
             "extra/result_image.html",
-            context={"error": f"Image processing failed: {str(e)}"}
+            {"error": f"Image processing failed: {str(e)}"}
         )

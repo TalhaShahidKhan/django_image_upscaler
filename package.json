@@ -6,5 +6,8 @@
   "scripts": {
     "build": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/minify.css --minify",
     "dev": "npx @tailwindcss/cli -i ./static/css/input.css -o ./static/css/output.css --watch"
+  },
+  "dependencies": {
+    "@paddle/paddle-js": "^1.4.0"
   }
 }

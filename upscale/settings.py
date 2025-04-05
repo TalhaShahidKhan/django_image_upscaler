@@ -23,10 +23,18 @@ env = environ.Env(
     CLOUDINARY_API_SECRET=(str, None),
     PADDLE_CLIENT_SIDE_TOKEN=(str, None),
     PADDLE_WEBHOOK_SECRET=(str, None),
+    PADDLE_API_SECRET_KEY=(str, None),
+    PADDLE_ENVIRONMENT=(str,None),
     ADMIN_ALLOWED_IPS=(list, []),
     DJANGO_SUPERUSER_USERNAME=(str,None),
     DJANGO_SUPERUSER_EMAIL=(str,None),
-    DJANGO_SUPERUSER_PASSWORD=(str,None)
+    DJANGO_SUPERUSER_PASSWORD=(str,None),
+    ALLOWED_HOSTS=(list,[]),
+    EMAIL_HOST=(str,None),
+    EMAIL_PORT=(int,None),
+    EMAIL_HOST_USER=(str,None),
+    EMAIL_HOST_PASSWORD=(str,None),
+    EMAIL_USE_TLS=(bool,None),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -47,7 +55,10 @@ SECRET_KEY = env("SECRET_KEY")
 
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = env("ALLOWED_HOSTS")
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+
 
 # Application definition
 
@@ -73,7 +84,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "users.middleware.AdminIPRestrictionMiddleware",
+    "users.middleware.AdminAccessMiddleware",
 ]
 
 ROOT_URLCONF = "upscale.urls"
@@ -126,6 +137,8 @@ CLOUDINARY_API_SECRET = env("CLOUDINARY_API_SECRET")
 # Paddle settings
 PADDLE_CLIENT_SIDE_TOKEN = env("PADDLE_CLIENT_SIDE_TOKEN")
 PADDLE_WEBHOOK_SECRET = env('PADDLE_WEBHOOK_SECRET')  # You'll need to get this from Paddle dashboard
+PADDLE_API_SECRET_KEY = env('PADDLE_API_SECRET_KEY')  # You'll need to get this from Paddle dashboard
+PADDLE_ENVIRONMENT = env('PADDLE_ENVIRONMENT')  # You'll need to get this from Paddle dashboard
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -148,6 +161,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 LOGIN_REDIRECT_URL = "/home/dashboard/"
 LOGOUT_REDIRECT_URL = "/"
 SIGNUP_REDIRECT_URL = "/users/login/"
+LOGIN_URL="/users/login/"
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -190,8 +204,6 @@ else:
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SECURE = True
 
-# Admin IP restriction settings
-ADMIN_ALLOWED_IPS = ["*"]
 
 
 # Superuser commands variables 
@@ -208,3 +220,11 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST=env('EMAIL_HOST')
+EMAIL_PORT=env('EMAIL_PORT')
+EMAIL_HOST_USER=env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=env('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS=env('EMAIL_USE_TLS')

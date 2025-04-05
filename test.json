@@ -1,0 +1,170 @@
+{
+    "event_id": "evt_01jr3p769p0avvzgq9nm0as6ms",
+    "event_type": "transaction.completed",
+    "occurred_at": "2025-04-05T19:20:21.960618Z",
+    "notification_id": "ntf_01jr3p76ejtzd2vk4ham0cxgcs",
+    "data": {
+        "id": "txn_01jr3p6b3wfscc4seqcg85cmzk",
+        "items": [
+            {
+                "price": {
+                    "id": "pri_01jr3p6b861e8v11mj7hja0vrk",
+                    "name": "10$ amount of Credits",
+                    "type": "custom",
+                    "status": "active",
+                    "quantity": {
+                        "maximum": 100,
+                        "minimum": 1
+                    },
+                    "tax_mode": "account_setting",
+                    "created_at": "2025-04-05T19:17:42.278179Z",
+                    "product_id": "pro_01jr3p6b3z5svb6afy4n8na55y",
+                    "unit_price": {
+                        "amount": "1000",
+                        "currency_code": "USD"
+                    },
+                    "updated_at": "2025-04-05T19:17:42.278179Z",
+                    "custom_data": null,
+                    "description": "Purchase of 5 credits",
+                    "trial_period": null,
+                    "billing_cycle": null,
+                    "unit_price_overrides": []
+                },
+                "price_id": "pri_01jr3p6b861e8v11mj7hja0vrk",
+                "quantity": 1,
+                "proration": null
+            }
+        ],
+        "origin": "api",
+        "status": "completed",
+        "details": {
+            "totals": {
+                "fee": "100",
+                "tax": "130",
+                "total": "1000",
+                "credit": "0",
+                "balance": "0",
+                "discount": "0",
+                "earnings": "770",
+                "subtotal": "870",
+                "grand_total": "1000",
+                "currency_code": "USD",
+                "credit_to_balance": "0"
+            },
+            "line_items": [
+                {
+                    "id": "txnitm_01jr3p6jzxwj1e50ka8fr18z7j",
+                    "totals": {
+                        "tax": "130",
+                        "total": "1000",
+                        "discount": "0",
+                        "subtotal": "870"
+                    },
+                    "item_id": null,
+                    "product": {
+                        "id": "pro_01jr3p6b3z5svb6afy4n8na55y",
+                        "name": "5 Credits",
+                        "type": "custom",
+                        "status": "active",
+                        "image_url": null,
+                        "created_at": "2025-04-05T19:17:42.265Z",
+                        "updated_at": "2025-04-05T19:17:42.265Z",
+                        "custom_data": null,
+                        "description": "Package of 5 upscale credits",
+                        "tax_category": "saas"
+                    },
+                    "price_id": "pri_01jr3p6b861e8v11mj7hja0vrk",
+                    "quantity": 1,
+                    "tax_rate": "0.15",
+                    "unit_totals": {
+                        "tax": "130",
+                        "total": "1000",
+                        "discount": "0",
+                        "subtotal": "870"
+                    },
+                    "is_tax_exempt": false,
+                    "revised_tax_exempted": false
+                }
+            ],
+            "payout_totals": {
+                "fee": "100",
+                "tax": "130",
+                "total": "1000",
+                "credit": "0",
+                "balance": "0",
+                "discount": "0",
+                "earnings": "770",
+                "fee_rate": "0.05",
+                "subtotal": "870",
+                "grand_total": "1000",
+                "currency_code": "USD",
+                "exchange_rate": "1",
+                "credit_to_balance": "0"
+            },
+            "tax_rates_used": [
+                {
+                    "totals": {
+                        "tax": "130",
+                        "total": "1000",
+                        "discount": "0",
+                        "subtotal": "870"
+                    },
+                    "tax_rate": "0.15"
+                }
+            ],
+            "adjusted_totals": {
+                "fee": "100",
+                "tax": "130",
+                "total": "1000",
+                "earnings": "770",
+                "subtotal": "870",
+                "grand_total": "1000",
+                "currency_code": "USD"
+            }
+        },
+        "checkout": {
+            "url": "https://localhost:8000?_ptxn=txn_01jr3p6b3wfscc4seqcg85cmzk"
+        },
+        "payments": [
+            {
+                "amount": "1000",
+                "status": "captured",
+                "created_at": "2025-04-05T19:18:05.038884Z",
+                "error_code": null,
+                "captured_at": "2025-04-05T19:18:07.00142Z",
+                "method_details": {
+                    "card": {
+                        "type": "visa",
+                        "last4": "4242",
+                        "expiry_year": 2025,
+                        "expiry_month": 11,
+                        "cardholder_name": "talha"
+                    },
+                    "type": "card"
+                },
+                "payment_method_id": "paymtd_01jr3p71esxfsd7x34gtg4c5jd",
+                "payment_attempt_id": "5123463a-67b9-41d1-9db0-0c884ec80f63",
+                "stored_payment_method_id": "cd823742-dc3f-4433-ac2c-a57a2ddb3951"
+            }
+        ],
+        "billed_at": "2025-04-05T19:18:07.365633Z",
+        "address_id": "add_01jr3p6jp9e1ss519exbs0k5jt",
+        "created_at": "2025-04-05T19:17:42.322953Z",
+        "invoice_id": "inv_01jr3p7472tt9ytv2es9b8bj1h",
+        "revised_at": null,
+        "updated_at": "2025-04-05T19:18:09.472557969Z",
+        "business_id": null,
+        "custom_data": {
+            "credit_id": 1
+        },
+        "customer_id": "ctm_01jn69hatd43mv4bs4sc4dhdks",
+        "discount_id": null,
+        "receipt_data": null,
+        "currency_code": "USD",
+        "billing_period": null,
+        "invoice_number": "10543-10076",
+        "billing_details": null,
+        "collection_mode": "automatic",
+        "subscription_id": null
+    }
+}

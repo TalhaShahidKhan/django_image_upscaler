@@ -1,11 +1,11 @@
 from django.urls import path
-from .views import ListCreditsView, paddle_webhook, complete_purchase, payment_success
+from .views import ListCreditsView, create_dynamic_transaction, payment_success,webhook
 
 urlpatterns = [
     path('credits/', ListCreditsView.as_view(), name='list_credits'),
-    path('webhook/', paddle_webhook, name='webhook'),
-    path('complete/', complete_purchase, name='complete'),
-    path('success/', payment_success, name='success'),
+    path('pay/<int:credit_id>/', create_dynamic_transaction, name="transaction"),
+    path('success/', payment_success, name="payment_success"),
+    path('webhook/', webhook, name="webhook"),
 ]
 
 app_name = "payments"

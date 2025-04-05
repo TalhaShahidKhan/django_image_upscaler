@@ -3,15 +3,36 @@
     Image Editor
 {% endblock title %}
 {% block body %}
-    {% if image %}
+    {% if error %}
+        <div class="text-red-500 p-4 rounded-md bg-red-100">
+            <p>{{ error }}</p>
+            {% if credit_url %}
+                <div class="mt-4">
+                    <a href="{{ credit_url }}"
+                       class="inline-block py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition duration-200">
+                        Purchase Credits
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% elif message %}
+        <div class="text-blue-500 p-4 rounded-md bg-blue-100">
+            <p>{{ message }}</p>
+            {% if redirect_url %}
+                <p class="mt-2">
+                    <a href="{{ redirect_url }}" class="text-blue-600 underline">View your image</a>
+                </p>
+            {% endif %}
+        </div>
+    {% elif image %}
         <div class="max-w-4xl mx-auto px-4 py-8">
             <h1 class="text-3xl font-bold text-center mb-6 text-gray-800">Image Editor</h1>
             <div class="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
                 <div class="p-6">
-        <img src="{{ image.upload_link }}"
+                    <img src="{{ image.upload_link }}"
                          height="100"
                          width="100"
-             alt="{{ image.image_name }}"
+                         alt="{{ image.image_name }}"
                          class="max-w-full max-h-96 mx-auto rounded-lg shadow-md">
                     <p class="mt-4 text-center text-gray-600 font-medium">{{ image.image_name }}</p>
                 </div>
