@@ -46,14 +46,10 @@ def create_dynamic_transaction(request, credit_id):
     try:
         credit = Credit.objects.get(id=credit_id)
 
-        # Handle environment properly
-        if settings.PADDLE_ENVIRONMENT.strip().lower() == "sandbox":
-            env = Environment.SANDBOX
-        else:
-            env = Environment.PRODUCTION
-
+        # Use Environment.SANDBOX directly for testing
         paddle = Client(
-            settings.PADDLE_API_SECRET_KEY, options=Options(env)
+            settings.PADDLE_API_SECRET_KEY,
+            options=Options(Environment.SANDBOX)  # Force SANDBOX for now
         )
 
         # Create the transaction with more complete information
