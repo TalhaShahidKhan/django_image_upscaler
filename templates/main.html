@@ -1,7 +1,302 @@
 {% extends "base.html" %}
-{% block title %}
-    Home Page
-{% endblock title %}
+{% load static %}
+{% block meta_title %}
+    Scalify - AI Image Enhancement & Processing | Transform Your Photos
+{% endblock meta_title %}
+{% block meta_title_tag %}
+    Scalify - AI Image Enhancement & Processing | Transform Your Photos
+{% endblock meta_title_tag %}
+{% block meta_description %}
+    Transform ordinary images into extraordinary visuals with Scalify's AI-powered tools. Enhance resolution, remove backgrounds, and apply intelligent edits with just a few clicks.
+{% endblock meta_description %}
+{% block meta_keywords %}
+    AI image enhancement, image upscaling, background removal, photo editing, AI image processor, high resolution conversion, Scalify
+{% endblock meta_keywords %}
+{% block og_title %}
+    Scalify - Intelligent Image Enhancement Platform
+{% endblock og_title %}
+{% block og_description %}
+    Transform ordinary images into extraordinary visuals with Scalify's AI-powered tools. Enhance resolution, remove backgrounds, and apply intelligent edits.
+{% endblock og_description %}
+{% block twitter_title %}
+    Scalify - Intelligent Image Enhancement Platform
+{% endblock twitter_title %}
+{% block twitter_description %}
+    Transform ordinary images into extraordinary visuals with Scalify's AI-powered tools. Enhance resolution, remove backgrounds, and apply intelligent edits.
+{% endblock twitter_description %}
+{% block structured_data %}
+    <!-- JSON-LD Structured Data for Organization -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Scalify",
+    "url": "{{ request.scheme }}://{{ request.get_host }}",
+    "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}",
+    "description": "AI-powered image enhancement platform",
+    "sameAs": [
+        "https://twitter.com/scalify",
+        "https://facebook.com/scalify"
+    ]
+}
+    </script>
+    <!-- JSON-LD for SoftwareApplication -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Scalify",
+    "applicationCategory": "MultimediaApplication",
+    "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+    },
+    "operatingSystem": "Web-based",
+    "description": "Transform ordinary images into extraordinary visuals with AI-powered tools",
+    "featureList": [
+        "AI-powered upscaling",
+        "Background removal",
+        "Generative fill and replace",
+        "Object extraction",
+        "Cloud storage"
+    ]
+}
+    </script>
+{% endblock structured_data %}
 {% block body %}
-    Home Page
+    <!-- Hero Section -->
+    <div class="relative overflow-hidden bg-white dark:bg-gray-900">
+        <div class="absolute inset-0 z-0 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="pt-16 pb-24 md:pt-24 md:pb-32 flex flex-col md:flex-row items-center">
+                <!-- Hero Content -->
+                <div class="md:w-1/2 md:pr-8 lg:pr-12 mb-12 md:mb-0 text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
+                        <span class="block text-gray-900 dark:text-white">Transform Images with</span>
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">AI Power</span>
+                    </h1>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto md:mx-0">
+                        Enhance, upscale, and transform your images with state-of-the-art AI technology. Get professional results in seconds.
+                    </p>
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                        <a href="{% url 'scale:upscale' %}"
+                           class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-lg px-8 py-4 text-center">
+                            Start Enhancing
+                        </a>
+                        <a href="{% url 'payments:list_credits' %}"
+                           class="text-gray-900 bg-white hover:bg-gray-50 border border-gray-300 shadow-md font-medium rounded-lg text-lg px-8 py-4 text-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700">
+                            View Plans
+                        </a>
+                    </div>
+                </div>
+                <!-- Hero Image -->
+                <div class="md:w-1/2 relative">
+                    <div class="relative mx-auto w-full max-w-md">
+                        <!-- Image Container with Glow Effect -->
+                        <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                            <!-- Before/After Image Placeholder - Replace with actual comparison image -->
+                            <div class="aspect-w-4 aspect-h-3 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 p-1">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <p class="text-lg font-medium text-gray-800 dark:text-white">Image Comparison</p>
+                                </div>
+                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 text-white text-center">
+                                    <span class="font-medium">See the difference with Scalify</span>
+                                </div>
+                            </div>
+                            <!-- Glow Effect -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Features Section -->
+    <div class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                    <span class="block">Powerful AI Features</span>
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mt-2">For Your Images</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 dark:text-gray-300 mx-auto">
+                    Our advanced AI tools transform your ordinary photos into extraordinary visuals
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    <div class="inline-block rounded-full bg-blue-100 dark:bg-blue-900/30 p-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-8 w-8 text-blue-600 dark:text-blue-400"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor"
+                             aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Superior Upscaling</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Transform low-resolution images into crystal-clear, high-definition visuals with our AI upscaler
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    <div class="inline-block rounded-full bg-purple-100 dark:bg-purple-900/30 p-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-8 w-8 text-purple-600 dark:text-purple-400"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor"
+                             aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-7 7m7-7l-7-7" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Background Removal</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Remove backgrounds with precision to isolate subjects perfectly for your creative projects
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    <div class="inline-block rounded-full bg-indigo-100 dark:bg-indigo-900/30 p-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-8 w-8 text-indigo-600 dark:text-indigo-400"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor"
+                             aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Generative Fill</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Intelligently expand your images or fill in missing parts with our advanced AI generation
+                    </p>
+                </div>
+                <!-- Feature 4 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    <div class="inline-block rounded-full bg-pink-100 dark:bg-pink-900/30 p-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-8 w-8 text-pink-600 dark:text-pink-400"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor"
+                             aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Object Replacement</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Replace specific objects or elements in your images with new ones using generative AI
+                    </p>
+                </div>
+                <!-- Feature 5 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    <div class="inline-block rounded-full bg-green-100 dark:bg-green-900/30 p-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-8 w-8 text-green-600 dark:text-green-400"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor"
+                             aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Object Extraction</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Extract specific objects from your images with perfect edge detection</p>
+                </div>
+                <!-- Feature 6 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl p-6 text-center shadow border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
+                    <div class="inline-block rounded-full bg-yellow-100 dark:bg-yellow-900/30 p-4 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             class="h-8 w-8 text-yellow-600 dark:text-yellow-400"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor"
+                             aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Lightning Fast</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Get your enhanced images in seconds with our optimized processing engine
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- How It Works Section -->
+    <div class="py-16 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                    <span class="block">How Scalify Works</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-600 dark:text-gray-300 mx-auto">
+                    Three simple steps to transform your images
+                </p>
+            </div>
+            <div class="relative">
+                <!-- Connection Line (hidden on mobile) -->
+                <div class="hidden md:block absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <!-- Step 1 -->
+                    <div class="relative text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
+                            1
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Upload Your Image</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Upload any image in JPG, PNG, or WEBP format up to 10MB in size</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="relative text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
+                            2
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Select Enhancement</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Choose from various AI enhancement options for your specific needs</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="relative text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
+                            3
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Download Result</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Get your enhanced image instantly and download in high quality</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- CTA Section -->
+    <div class="py-16 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden">
+                <div class="px-6 py-12 md:p-12 lg:px-16 lg:py-16 text-center md:text-left md:flex md:items-center md:justify-between">
+                    <div class="md:w-2/3 mb-8 md:mb-0">
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">Ready to transform your images?</h2>
+                        <p class="mt-4 text-lg text-blue-100 max-w-3xl">
+                            Start enhancing your photos today with our powerful AI tools. Sign up now and get free credits to try all features.
+                        </p>
+                    </div>
+                    <div class="md:w-1/3 flex flex-col sm:flex-row md:flex-col space-y-4 sm:space-y-0 sm:space-x-4 md:space-x-0 md:space-y-4 justify-center">
+                        <a href="{% url 'scale:upscale' %}"
+                           class="text-blue-700 bg-white hover:bg-blue-50 font-medium rounded-lg text-lg px-8 py-4 text-center shadow-md transition-colors">
+                            Try It Now
+                        </a>
+                        <a href="{% url 'users:signup' %}"
+                           class="text-white bg-blue-700/30 hover:bg-blue-700/50 border border-white/30 font-medium rounded-lg text-lg px-8 py-4 text-center transition-colors">
+                            Sign Up Free
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock body %}
