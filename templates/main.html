@@ -96,14 +96,29 @@
                     <div class="relative mx-auto w-full max-w-md">
                         <!-- Image Container with Glow Effect -->
                         <div class="relative rounded-2xl overflow-hidden shadow-2xl">
-                            <!-- Before/After Image Placeholder - Replace with actual comparison image -->
-                            <div class="aspect-w-4 aspect-h-3 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 p-1">
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <p class="text-lg font-medium text-gray-800 dark:text-white">Image Comparison</p>
+                            <!-- Before/After Image Comparison -->
+                            <div class="relative">
+                                <!-- Split image comparison -->
+                                <div class="flex w-full h-full">
+                                    <div class="w-1/2 relative overflow-hidden">
+                                        <img src="{% static 'images/comparison-before.png' %}"
+                                             alt="Before AI Enhancement"
+                                             class="w-full h-full object-cover">
+                                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-blue-600 to-purple-600 p-2 text-white text-center text-xs font-medium">
+                                            Before
+                                        </div>
+                                    </div>
+                                    <div class="w-1/2 relative overflow-hidden">
+                                        <img src="{% static 'images/comparison-after.png' %}"
+                                             alt="After AI Enhancement"
+                                             class="w-full h-full object-cover">
+                                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-blue-600 to-purple-600 p-2 text-white text-center text-xs font-medium">
+                                            After
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 text-white text-center">
-                                    <span class="font-medium">See the difference with Scalify</span>
-                                </div>
+                                <!-- Divider line -->
+                                <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/80 transform -translate-x-1/2 z-10"></div>
                             </div>
                             <!-- Glow Effect -->
                             <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-40 transition-opacity">
@@ -247,15 +262,15 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <!-- Step 1 -->
-                    <div class="relative text-center">
-                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
+                    <div class="relative text-center py-5 px-4 rounded-3xl bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-fuchsia-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
                             1
                         </div>
                         <h3 class="text-xl font-bold mb-2 text-gray-900 dark:text-white">Upload Your Image</h3>
                         <p class="text-gray-600 dark:text-gray-300">Upload any image in JPG, PNG, or WEBP format up to 10MB in size</p>
                     </div>
                     <!-- Step 2 -->
-                    <div class="relative text-center">
+                    <div class="relative text-center py-5 px-4 rounded-3xl bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80">
                         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
                             2
                         </div>
@@ -263,7 +278,7 @@
                         <p class="text-gray-600 dark:text-gray-300">Choose from various AI enhancement options for your specific needs</p>
                     </div>
                     <!-- Step 3 -->
-                    <div class="relative text-center">
+                    <div class="relative text-center py-5 px-4 rounded-3xl bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80">
                         <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-600 text-white text-2xl font-bold mb-4 mx-auto shadow-lg">
                             3
                         </div>

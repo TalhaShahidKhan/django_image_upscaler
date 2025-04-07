@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% load static %}
+{% block meta_title %}About Scalify | The Story Behind Our AI Image Enhancement Platform{% endblock %}
+{% block meta_description %}
+    Learn about Scalify, a powerful AI image enhancement platform built by a solo programmer entrepreneur dedicated to making professional image processing accessible to everyone.
+{% endblock %}
+{% block meta_keywords %}
+    about Scalify, AI image platform, solo entrepreneur, developer story, image processing technology, tech startup
+{% endblock %}
+{% block structured_data %}
+    <!-- JSON-LD Structured Data for Organization -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Scalify",
+  "url": "{{ request.scheme }}://{{ request.get_host }}",
+  "logo": "{{ request.scheme }}://{{ request.get_host }}{% static 'images/logo.png' %}",
+  "description": "AI-powered image enhancement platform developed by a solo entrepreneur",
+  "founder": {
+    "@type": "Person",
+    "name": "Scalify Founder"
+  },
+  "foundingDate": "2023",
+  "sameAs": [
+    "https://twitter.com/scalify",
+    "https://facebook.com/scalify"
+  ]
+}
+    </script>
+{% endblock structured_data %}
+{% block body %}
+    <div class="max-w-5xl mx-auto px-4 py-12 md:py-16">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 mb-6">
+                About Scalify
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Transforming the world of image processing, one pixel at a time.
+            </p>
+        </div>
+        <!-- Main content -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-16">
+            <!-- Image column -->
+            <div class="md:col-span-2 flex items-center justify-center">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur opacity-30"></div>
+                    <div class="relative rounded-full overflow-hidden h-64 w-64 border-4 border-white dark:border-gray-800 shadow-xl">
+                        <div class="h-full w-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 flex items-center justify-center">
+                            <svg class="h-32 w-32 text-blue-600 dark:text-blue-400"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10 7h4m0 0v4m0-4l-4 4m-3-1v4m0 0h4m-4 0l4-4m-8 8h16M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Text column -->
+            <div class="md:col-span-3">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">The Scalify Story</h2>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    Hello! I'm the creator of Scalify, a solo entrepreneur and programmer with a passion for artificial intelligence and image processing. What started as a personal project to solve my own image enhancement needs has evolved into a powerful platform that I'm proud to share with the world.
+                </p>
+                <p class="text-gray-700 dark:text-gray-300 mb-4">
+                    With a background in software development and a fascination with AI, I set out to build a tool that could make professional-grade image enhancement accessible to everyone, not just those with expensive software or technical expertise.
+                </p>
+                <p class="text-gray-700 dark:text-gray-300">
+                    Scalify represents countless hours of coding, testing, and refining algorithms to deliver the best possible results. As a one-person team, I handle everything from development to customer support, driven by the belief that powerful technology should be simple to use and accessible to all.
+                </p>
+            </div>
+        </div>
+        <!-- Mission & Values -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700 mb-16">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">Mission & Values</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="inline-block rounded-full bg-blue-100 dark:bg-blue-900/30 p-4 mb-4">
+                        <svg class="h-8 w-8 text-blue-600 dark:text-blue-400"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Quality First</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Delivering exceptional image quality through continuous algorithm improvements and rigorous testing.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="inline-block rounded-full bg-purple-100 dark:bg-purple-900/30 p-4 mb-4">
+                        <svg class="h-8 w-8 text-purple-600 dark:text-purple-400"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Accessibility</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Making advanced image processing technology accessible to everyone, regardless of technical background.
+                    </p>
+                </div>
+                <div class="text-center">
+                    <div class="inline-block rounded-full bg-indigo-100 dark:bg-indigo-900/30 p-4 mb-4">
+                        <svg class="h-8 w-8 text-indigo-600 dark:text-indigo-400"
+                             xmlns="http://www.w3.org/2000/svg"
+                             fill="none"
+                             viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2 text-gray-800 dark:text-white">Innovation</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Constantly exploring new AI approaches and technologies to provide cutting-edge features and results.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Technology -->
+        <div class="mb-16">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">The Technology Behind Scalify</h2>
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8">
+                <p class="text-gray-700 dark:text-gray-300 mb-6">
+                    Scalify leverages state-of-the-art deep learning models and computer vision techniques to transform your images. The platform combines several specialized neural networks:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm">
+                        <h3 class="font-bold text-gray-900 dark:text-white mb-2">Super-Resolution Networks</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Custom-trained models that intelligently upscale images while preserving details and reducing artifacts.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm">
+                        <h3 class="font-bold text-gray-900 dark:text-white mb-2">Segmentation Models</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Advanced algorithms that accurately identify and separate objects from backgrounds with pixel-perfect precision.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm">
+                        <h3 class="font-bold text-gray-900 dark:text-white mb-2">Generative Networks</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            AI systems that can create realistic image content for filling in missing areas or expanding canvas space.
+                        </p>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm">
+                        <h3 class="font-bold text-gray-900 dark:text-white mb-2">Cloud Processing</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">
+                            Scalable infrastructure that handles intensive AI computations in the cloud, delivering fast results without taxing your device.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Future vision -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Looking Ahead</h2>
+            <p class="text-gray-700 dark:text-gray-300 mb-4">
+                As a solo developer, I'm committed to continuously improving Scalify. The roadmap includes new enhancement features, batch processing capabilities, and even more intelligent AI models.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300">
+                Your feedback is invaluable in shaping this journey. Every suggestion helps make Scalify better for everyone.
+            </p>
+        </div>
+        <!-- Call to action -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-xl overflow-hidden">
+            <div class="px-6 py-12 text-center">
+                <h2 class="text-3xl font-bold text-white mb-4">Ready to transform your images?</h2>
+                <p class="text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Join me on this journey and experience the power of AI image enhancement today.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="{% url 'scale:upscale' %}"
+                       class="text-blue-700 bg-white hover:bg-blue-50 font-medium rounded-lg text-lg px-8 py-3 text-center shadow-md transition-colors">
+                        Try It Now
+                    </a>
+                    <a href="{% url 'home:contact' %}"
+                       class="text-white bg-blue-700/30 hover:bg-blue-700/50 border border-white/30 font-medium rounded-lg text-lg px-8 py-3 text-center transition-colors">
+                        Get In Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

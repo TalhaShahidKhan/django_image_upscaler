@@ -20,7 +20,7 @@ from home.views import HomePageView
 
 urlpatterns = [
     path('', HomePageView.as_view(),name="main"),
-    path('admin/', admin.site.urls),
+    path('talhakhan/', admin.site.urls),
     path('home/', include('home.urls',namespace="home")),
     path('users/', include('users.urls',namespace="users")),
     path('scale/', include('dj_cloudinary.urls',namespace="scale")),
