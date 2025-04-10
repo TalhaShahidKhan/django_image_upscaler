@@ -7,9 +7,9 @@ class AdminAccessMiddleware:
 
     def __call__(self, request):
         # Check if the request is for the admin site
-        if request.path.startswith('/admin/'):
+        if request.path.startswith('/talhakhan/'):
             # Allow access to login page
-            if request.path == '/admin/login/' or request.path.startswith('/admin/login'):
+            if request.path == '/talhakhan/login/' or request.path.startswith('/talhakhan/login'):
                 return self.get_response(request)
                 
             # Check if user is authenticated
