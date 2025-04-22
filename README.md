@@ -29,8 +29,8 @@ A modern, scalable Django backend for web applications. Built with best practice
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-django-project.git
-cd your-django-project
+git clone https://github.com/TalhaShahidKhan/django_image_upscaler.git
+cd django_image_upscaler
 ```
 
 ### 2. Create & Activate Virtual Environment
